@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>بطاقة عيد ميلاد</title>
+  <style>
+    /* إعادة ضبط أساسية */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      background-color: #001f3f;
+      font-family: Arial, sans-serif;
+      position: relative;
+    }
+
+    /* نص التمرير */
+    .scrolling-text {
+      position: absolute;
+      top: 10px;
+      width: 100%;
+      font-size: 2em;
+      color: #ffdf00;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      animation: glow 1.5s infinite alternate;
+    }
+
+    .scrolling-text span {
+      display: inline-block;
+      padding-left: 100%;
+      animation: scroll 10s linear infinite;
+    }
+
+    @keyframes scroll {
+      from {
+        transform: translateX(100%);
+      }
+      to {
+        transform: translateX(-100%);
+      }
+    }
+
+    /* تأثير الوهج */
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 10px #ffdf00, 0 0 20px #ffdf00, 0 0 30px #ff4500;
+      }
+      to {
+        text-shadow: 0 0 20px #ff4500, 0 0 30px #ffdf00, 0 0 40px #ff4500;
+      }
+    }
+
+    /* تنسيق الصورة */
+    .card-container {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      animation: pulse 1.5s infinite;
+    }
+
+    .card-container img {
+      max-width: 300px;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0px 4px 20px rgba(255, 69, 0, 0.6);
+    }
+
+    /* تأثير نبض */
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+    }
+
+    /* تنسيق البالونات */
+    .balloon {
+      position: absolute;
+      bottom: -100px;
+      width: 50px;
+      height: 80px;
+      background-color: #ff6347;
+      border-radius: 50%;
+      opacity: 0.9;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .balloon::before {
+      content: '';
+      position: absolute;
+      bottom: -25px;
+      left: 50%;
+      width: 2px;
+      height: 25px;
+      background-color: #333;
+      transform: translateX(-50%);
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0) translateX(0);
+      }
+      50% {
+        transform: translateY(-250px) translateX(30px);
+      }
+    }
+
+    /* تنسيق المفرقعات */
+    .confetti {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background-color: #f9d423;
+      opacity: 0.9;
+      animation: fall 2s linear infinite, spin 1s infinite linear;
+      border-radius: 50%;
+    }
+
+    @keyframes fall {
+      from {
+        transform: translateY(-100vh) rotate(0deg);
+      }
+      to {
+        transform: translateY(100vh) rotate(360deg);
+      }
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- نص التمرير -->
+  <div class="scrolling-text">
+    <span>🎉 Happy birthday. I wish you a happy life MOM 🎉</span>
+  </div>
+
+  <!-- بطاقة عيد الميلاد -->
+  <div class="card-container">
+    <img src="k.jpeg" alt="بطاقة عيد ميلاد">
+  </div>
+
+  <!-- موسيقى عيد الميلاد -->
+  <audio id="birthdayMusic" src="https://www.bensound.com/bensound-music/bensound-happyrock.mp3" loop autoplay></audio>
+
+  <!-- بالونات ومفرقعات -->
+  <script>
+    // تفعيل الموسيقى
+    const music = document.getElementById("birthdayMusic");
+    music.volume = 0.2; // تعديل مستوى الصوت
+    music.play();
+
+    function createBalloon() {
+      const balloon = document.createElement('div');
+      balloon.classList.add('balloon');
+      balloon.style.left = Math.random() * 100 + 'vw';
+      balloon.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 75%)`;
+      balloon.style.animationDuration = Math.random() * 2 + 3 + 's';
+      document.body.appendChild(balloon);
+
+      setTimeout(() => {
+        balloon.remove();
+      }, 6000);
+    }
+
+    function createConfetti() {
+      const confetti = document.createElement('div');
+      confetti.classList.add('confetti');
+      confetti.style.left = Math.random() * 100 + 'vw';
+      confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+      confetti.style.animationDuration = Math.random() * 2 + 2 + 's';
+      document.body.appendChild(confetti);
+
+      setTimeout(() => {
+        confetti.remove();
+      }, 3000);
+    }
+
+    // إنشاء البالونات والمفرقعات
+    setInterval(createBalloon, 800); // بالونات أكثر
+    setInterval(createConfetti, 150); // مفرقعات أكثر
+
+    // التحكم في الصوت
+    document.addEventListener('click', () => {
+      if (music.paused) {
+        music.play();
+      } else {
+        music.pause();
+      }
+    });
+  </script>
+
+</body>
+</html>
